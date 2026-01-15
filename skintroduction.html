@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skintroductions</title>
+
+    <style>
+        /* FONT */
+        @font-face {
+            font-family: 'HelveticaCustom';
+            src: url('fonts/Helvetica.ttc') format('truetype');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'lush';
+            src: url('fonts/lush.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'ab';
+            src: url('fonts/arial_black.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'HelveticaCustom', Helvetica, Arial, system-ui, -apple-system, sans-serif;
+            background: #12b24b;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: auto;
+            padding: 24px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+        }
+
+        h4 {
+
+            font-family: 'lush';
+            color: white;
+            font-size: 30px;
+            font-weight: 100;
+            text-align: center;
+
+        }
+
+        h5 {
+
+            font-family: 'ab';
+            color: white;
+            font-size: 15px;
+            font-weight: 100;
+            text-align: center;
+
+        }
+
+
+
+        /* SCREENS */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: screenIn 0.4s ease;
+        }
+
+        @keyframes screenIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* BUTTONS */
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #2b2b2b;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        button.secondary {
+            background: #dddddd;
+            color: #2b2b2b;
+        }
+
+        /* OPTIONS */
+        .option {
+            background: #212121;
+            padding: 14px;
+            margin-top: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid #fee738;
+        }
+
+        .option.selected {
+            border-color: #fee738;
+            background: #12b24b;
+        }
+
+        /* PROGRESS */
+        .progress {
+            height: 6px;
+            background: #212121;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #fee738;
+            transition: width 0.4s ease;
+        }
+
+        /* MASCOT */
+        .mascot {
+            display: flex;
+            gap: 12px;
+            background: #fee738;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin: 16px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            border: 5px solid #212121;
+        }
+
+        .mascot img {
+            width: 40px;
+            height: 35px;
+        }
+
+        .mascot p {
+            margin: 0;
+            font-family: 'lush';
+            font-size: 20px;
+            color: #212121;
+        }
+
+        /* PRODUCTS */
+        .product {
+            background: #000000;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 5px solid #fee738;
+            position: relative;
+        }
+
+        #guardiansScreen .product a {
+            color: white;
+        }
+
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+            background: #000;
+
+            align-self: center;
+        }
+
+        /* LOCK */
+        .lock-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(246, 247, 245, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .locked video {
+            pointer-events: none;
+        }
+
+        .unlocked .lock-overlay {
+            display: none;
+        }
+
+        /* LINKS */
+        .product ul {
+            padding-left: 18px;
+        }
+
+        .product a {
+            color: #2b2b2b;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- SCREEN 1 -->
+        <div class="screen active" id="screen1">
+            <h5>LUSH</h5>
+            <h1>Welcome to Skintroductions</h1>
+            <p>This is a calm, private space to learn how to look after your skin.</p>
+            <small>Go at your own pace.</small>
+
+            <div class="mascot" onclick="this.style.display='none'">
+                <img src="mascot/bibby.png" alt="Bibby">
+                <p>Hi, I’m Bibby. I’ll guide you through this.</p>
+            </div>
+
+            <button onclick="nextScreen()">Start</button>
+            <button class="secondary" onclick="goToGuardians()">Find out more</button>
+        </div>
+
+        <!-- SCREEN 2 -->
+        <div class="screen" id="screen2">
+            <h2>What does skin do?</h2>
+            <p>Your skin protects you and keeps moisture in.</p>
+
+            <div class="mascot" onclick="this.style.display='none'">
+                <img src="mascot/bibby.png">
+                <p>Skin works best when it’s treated gently.</p>
+            </div>
+
+            <button onclick="nextScreen()">Next</button>
+            <button class="secondary" onclick="backToStart()">Back to start</button>
+            <h5>LUSH</h5>
+        </div>
+
+        <!-- SCREEN 3 -->
+        <div class="screen" id="screen3">
+            <h2>How does your skin usually feel?</h2>
+
+            <div class="option" onclick="selectOption(this)">Comfortable most of the time</div>
+            <div class="option" onclick="selectOption(this)">Oily or shiny</div>
+            <div class="option" onclick="selectOption(this)">Dry or tight</div>
+
+            <div class="mascot" onclick="this.style.display='none'">
+                <img src="mascot/bibby.png">
+                <p>There are no right or wrong answers.</p>
+            </div>
+
+            <button onclick="nextScreen()">Continue</button>
+            <button class="secondary" onclick="backToStart()">Back to start</button>
+            <h5>LUSH</h5>
+
+        </div>
+
+        <!-- SCREEN 4 -->
+        <div class="screen" id="screen4">
+            <h2>Your routine</h2>
+            <ul>
+                <li>Cleanse</li>
+                <li>Tone</li>
+                <li>Moisturise</li>
+            </ul>
+
+            <div class="mascot" onclick="this.style.display='none'">
+                <img src="mascot/bibby.png">
+                <p>Simple routines are easier to keep up with.</p>
+            </div>
+
+            <button onclick="nextScreen()">See my products</button>
+            <button class="secondary" onclick="backToStart()">Back to start</button>
+            <h5>LUSH</h5>
+        </div>
+
+        <!-- SCREEN 5 -->
+        <div class="screen" id="screen5">
+            <h2>Your Simple Routine</h2>
+
+            <div class="mascot">
+                <img src="mascot/bibby.png">
+                <p>Watch each video to see how to use.</p>
+            </div>
+
+            <div class="product unlocked">
+                <h3>1. Cleanser</h3>
+                <h4>Ultrabland</h4>
+                <video controls poster="thumbnails/clean.png">
+                    <source src="videos/ultrabalm.mp4">
+                </video>
+            </div>
+
+            <div class="product unlocked">
+                <h3>2. Toner</h3>
+                <h4>Dream Steam</h4>
+                <video controls poster="thumbnails/tone.png">
+                    <source src="videos/toner.mp4">
+                </video>
+            </div>
+
+            <div class="product unlocked">
+                <h3>3.Moisturiser</h3>
+                <h4>Celestial</h4>
+                <video controls poster="thumbnails/moist.png">
+                    <source src="videos/moisturiser.mp4">
+                </video>
+            </div>
+
+            <button class="secondary" onclick="backToStart()">Back to start</button>
+            <h5>LUSH</h5>
+
+
+        </div>
+
+
+
+        <!-- GUARDIANS SCREEN -->
+        <div class="screen" id="guardiansScreen">
+            <h2>For parents & guardians</h2>
+
+            <div class="mascot" onclick="this.style.display='none'">
+                <img src="mascot/bibby.png">
+                <p>This section gives further information on our skincare.</p>
+            </div>
+
+            <div class="product">
+                <h3>Resources</h3>
+                <video controls poster="thumbnails/info.png">
+                    <source src="videos/info.mp4">
+                </video>
+            </div>
+
+            <div class="product">
+                <h3>Helpful resources</h3>
+                <ul>
+                    <li><a href="https://www.lush.com/uk/en/p/ultrabalm-body-balm" target="_blank">Ultrabalm</a>
+                    </li>
+                    <li><a href="https://www.lush.com/uk/en/p/dream-steam-steamer-tab?queryId=ea68b4f803f26ae490322f721b2b44b9"
+                            target="_blank">Dream Steam</a></li>
+                    <li><a href="hhttps://www.lush.com/uk/en/p/celestial-moisturiser?queryId=c7ad464b2292b87a47b30bac275935eb"
+                            target="_blank">Celestial</a>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="secondary" onclick="backToStart()">Back to start</button>
+            <h5>LUSH</h5>
+        </div>
+
+    </div>
+
+    <script>
+        let currentScreen = 1;
+        const totalScreens = 5;
+
+        function nextScreen() {
+            document.getElementById(`screen${currentScreen}`).classList.remove("active");
+            currentScreen++;
+            document.getElementById(`screen${currentScreen}`).classList.add("active");
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const percent = ((currentScreen - 1) / (totalScreens - 1)) * 100;
+            document.getElementById("progressBar").style.width = percent + "%";
+        }
+
+        function selectOption(el) {
+            document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+            el.classList.add("selected");
+        }
+
+        function goToGuardians() {
+            document.getElementById(`screen${currentScreen}`).classList.remove("active");
+            document.getElementById("guardiansScreen").classList.add("active");
+        }
+
+        function backToStart() {
+            document.getElementById("guardiansScreen").classList.remove("active");
+            document.getElementById("screen2").classList.remove("active");
+            document.getElementById("screen3").classList.remove("active");
+            document.getElementById("screen4").classList.remove("active");
+            document.getElementById("screen5").classList.remove("active");
+            currentScreen = 1;
+            document.getElementById("screen1").classList.add("active");
+            updateProgress();
+        }
+    </script>
+
+</body>
+
+</html>
